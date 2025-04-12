@@ -5,6 +5,7 @@ import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import FormBuilder from "./components/form/FormBuilder";
+import FormPreview from "./components/form/FormPreview";
 
 const appRouter = createBrowserRouter([
    {
@@ -34,6 +35,11 @@ const appRouter = createBrowserRouter([
         {
             path: "/formbuilder",
             element: <FormBuilder/>,
+            children: []
+        },
+        {
+            path: "/forms/:formId",
+            element: <FormPreview />,
             children: []
         }
     ]

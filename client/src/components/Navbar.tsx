@@ -11,23 +11,20 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 bg-gray-300 backdrop-blur-md z-50">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between h-16">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
+       <Link to="/">
+       <div className="flex items-center gap-2">
           <Shapes className="w-8 h-8 text-purple-400" />
           <span className="text-xl font-bold text-gray-900">FormBuilder</span>
         </div>
-
-        {/* Desktop Navigation */}
+       </Link>
         <div className="hidden md:flex items-center gap-8">
           <Link to="/signin"><button className="text-gray-600 hover:text-gray-900 cursor-pointer">Sign In</button></Link>
           <Link to="/signup">
             <button className="bg-purple-400 text-white px-4 py-2 rounded hover:bg-purple-400 transition-colors cursor-pointer">
-              Get Started
+              Signup
             </button>
           </Link>
         </div>
-
-        {/* Mobile menu button */}
         <div className="md:hidden">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -42,8 +39,6 @@ const Navbar = () => {
         </div>
       </div>
     </div>
-
-    {/* Mobile Navigation */}
     {isMenuOpen && (
       <div className="md:hidden bg-white border-b border-gray-200">
         <div className="px-2 pt-2 pb-3 space-y-1">
@@ -68,7 +63,7 @@ const Navbar = () => {
           <button className="block w-full text-left px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">
             Sign In
           </button>
-          <button className="block w-full px-3 py-2 text-center bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+          <button className="block w-full px-3 py-2 text-center bg-purple-400 text-white rounded-md hover:bg-purple-500 transition-colors">
             Get Started
           </button>
         </div>

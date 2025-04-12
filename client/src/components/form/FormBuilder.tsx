@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Type, CheckSquare, Eye, PenSquare, Save } from 'lucide-react';
 import ElementSettings from './ElementSetting';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 interface FormElement {
   id: string;
@@ -108,9 +109,16 @@ const FormBuilder: React.FC = () => {
         }))
       }
     };
-  
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('Authentication required. Please login.');
+      return;
+    }
     try {
-      const res = await axios.post("http://localhost:3300/api/v1/form/forms", formData);
+      const res = await axios.post("http://localhost:3300/api/v1/form/forms", formData , { headers: {
+        'token': `${token}`,
+      }});
       console.log('Form saved successfully:', res.data);
       setFormElements([]);
       setFormTitle("");
@@ -121,6 +129,19 @@ const FormBuilder: React.FC = () => {
       toast.error('Failed to save form. Please try again.');
     }
   };
+
+  const navigate = useNavigate();
+ 
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/signin');
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
 
   const renderFormElement = (element: FormElement) => {
     if (previewMode) {

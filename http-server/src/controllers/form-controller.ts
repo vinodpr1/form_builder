@@ -6,6 +6,8 @@ const formService = new FormService();
 const createForm = async (req: any, res:any) => {
   try {
     const formdata = req.body; 
+    const userid =  req.user.id;
+    formdata.userid=userid;
     console.log("kontroller", formdata);
     const response = await formService.createForm(formdata);
     return res.status(200).json({
@@ -24,7 +26,7 @@ const createForm = async (req: any, res:any) => {
 
 const readForms = async (req: any, res:any) => {
     try {
-      const response = await formService.readForm();
+      const response = await formService.readForms();
       return res.status(200).json({
         response: response,
         Message: "read endpoint to get all froms test endpoint",
@@ -39,7 +41,27 @@ const readForms = async (req: any, res:any) => {
     }
   };
 
+
+  const readForm = async (req: any, res:any) => {
+    try {
+      const form = await formService.readForm(req.params.id);
+      if (!form) return res.status(404).send({Message: "error occured while getting from by form id",});
+      return res.status(200).json({
+        response: form,
+        Message: "from by form id",
+        scuccess: true,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        Message: "error occured while getting from by form id",
+        success: false,
+        error: error,
+      });
+    }
+  };
+
 export {
   createForm,
-  readForms
+  readForms,
+  readForm
 };

@@ -1,58 +1,37 @@
-// import mongoose from 'mongoose';
-
-// const fieldSchema = new mongoose.Schema({
-//   name: { type: String, required: true },
-//   label: { type: String, required: true },
-//   options: { type: [String], default: [] },
-//   required: { type: Boolean, required: true},
-//   html_element: { type: Boolean },
-//   placeholder: { type: String },
-//   type: { type: String, required: true },
-// });
-
-// const formSchema = new mongoose.Schema({
-//   form: {
-//     title:{ type: String, default: "Title" },
-//     fields: [fieldSchema]
-//   },
-//   created_at: { type: Date, default: Date.now },
-//   updated_at: { type: Date, default: Date.now }
-// });
-
-// const FormModel = mongoose.model('Form', formSchema);
-// export default FormModel;
-
-
 import mongoose from 'mongoose';
 
 const fieldSchema = new mongoose.Schema({
   name: { type: String, required: true },
   label: { type: String, required: true },
-  options: { type: [String], default: undefined }, // Changed from [] to undefined
+  options: { type: [String], default: undefined },
   required: { type: Boolean, default: false },
   html_element: { 
-    type: String,  // Changed from Boolean to String
+    type: String,
     required: true,
-    enum: ['text', 'checkbox', 'email', 'number'] // Add all allowed types
+    enum: ['text', 'checkbox', 'email', 'number']
   },
   placeholder: { type: String },
   type: { 
     type: String, 
     required: true,
-    enum: ['text', 'boolean', 'number'] // Data types for validation
+    enum: ['text', 'boolean', 'number'] 
   }
 }, { _id: false });
 
 const formSchema = new mongoose.Schema({
   form: {
-    title: { type: String, required: true }, // Made title required
+    title: { type: String, required: true },
     fields: [fieldSchema]
+  },
+  userid: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User',
+    required: true 
   },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 });
 
-// Update timestamp before saving
 formSchema.pre('save', function(next) {
   this.updated_at = new Date();
   next();

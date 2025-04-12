@@ -13,10 +13,20 @@ export class FormRepository {
     }
   }
 
-  async readForm() {
+  async readForms() {
     try {
       const forms = await FormModel.find({});
       return forms;
+    } catch (error) {
+      console.log("Error has occured while fetching forms");
+      throw error;
+    }
+  }
+
+  async readForm(id: string) {
+    try {
+      const form = await FormModel.findById(id);
+      return form;
     } catch (error) {
       console.log("Error has occured while fetching forms");
       throw error;

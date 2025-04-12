@@ -13,9 +13,18 @@ export class FormService {
       }
     }
 
-    async readForm() {
+    async readForms() {
         try {
-          const response = await formRepository.readForm();
+          const response = await formRepository.readForms();
+          return response;
+        } catch (error) {
+          console.log("Error", error);
+        }
+    }
+
+    async readForm(id: string) {
+        try {
+          const response = await formRepository.readForm(id);
           return response;
         } catch (error) {
           console.log("Error", error);
