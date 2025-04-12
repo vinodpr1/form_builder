@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { ArrowRight, Shapes, Zap, Lock, Layout, Share2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const  LandingPage=()=> {
  
@@ -57,9 +58,11 @@ const  LandingPage=()=> {
             Easily create custom forms with our drag-and-drop builder — ideal for surveys, registrations, and feedback collection.
             </p>
             <div className="flex justify-center gap-4">
+           <Link to="/dashboard">
               <button className="bg-purple-400 curtor-pointer text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-purple-600 transition-colors">
-                Get Started <ArrowRight className="w-5 h-5" />
+                 Get Started <ArrowRight className="w-5 h-5" />
               </button>
+           </Link>
               <button className="bg-gray-200 cursor-pointer text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
                 Live Demo
               </button>
