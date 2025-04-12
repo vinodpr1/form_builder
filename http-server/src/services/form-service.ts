@@ -40,4 +40,13 @@ export class FormService {
       }
   }
 
+
+  async readResponse(id: string) {
+    try {
+      const response = await formRepository.readResponse(id);
+      return response;
+    } catch (error) {
+      console.log("Error", error);
+    }
+  }
 }

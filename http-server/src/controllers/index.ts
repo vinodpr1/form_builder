@@ -1,5 +1,5 @@
 import { createUser , loginUser} from "./user-controller";
-import { createForm, readForms, readForm, submitResponse } from "./form-controller";
+import { createForm, readForms, readForm, submitResponse, readResponse } from "./form-controller";
 
 export {
     createUser,
@@ -7,5 +7,6 @@ export {
     createForm,
     readForms,
     readForm,
-    submitResponse
+    submitResponse,
+    readResponse
 }
