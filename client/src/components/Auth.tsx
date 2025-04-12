@@ -1,5 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface IuserData{
   name?: string,
@@ -8,7 +10,7 @@ interface IuserData{
 }
 
 const Auth = ({component}:{component: string}) => {
-
+    const navigate = useNavigate();
     const [userData, setUserData] = useState<IuserData>({name:"", email:"", password:""})
     const handleChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
         setUserData((prev) => {
@@ -18,8 +20,30 @@ const Auth = ({component}:{component: string}) => {
    
     const handleSubmit= async (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        const response = await axios.post(`${component=="signup"? "http://localhost:3300/api/v1/user/signup" : "http://localhost:3300/api/v1/user/signin"}`, userData);
-        console.log(response);
+        if (component=="signup" && !userData.email && !userData.password && !userData.name) {
+            toast.error("signup with email, Pass and name");
+            return;
+        } 
+        if (component=="signin" && !userData.email && !userData.password) {
+            toast.error("signin with email & Pass");
+            return;
+        } 
+
+        try {
+            const response = await axios.post(`${component=="signup"? "http://localhost:3300/api/v1/user/signup" : "http://localhost:3300/api/v1/user/signin"}`, userData);
+            console.log(response);  
+            localStorage.setItem("token", response.data.data.token);
+            navigate("/dashboard");
+            setUserData({
+              email: "",
+              password: "",
+              name: "",
+            });
+          } catch (error) {
+            toast.error("Please Check Userid & Password");
+            console.log("error occured", error);
+        }
+
     }
 
   return (
