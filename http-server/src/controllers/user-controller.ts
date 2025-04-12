@@ -18,7 +18,7 @@ const createUser = async (req: any, res:any) => {
       scuccess: true,
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
       Message: "User can not Created Successfully#",
       success: false,
       error: error,
@@ -36,8 +36,8 @@ const loginUser = async (req: any, res: any) => {
       scuccess: true,
     });
   } catch (error) {
-    return res.status(500).json({
-      Message: "User can not authenticated successfully",
+    return res.status(400).json({
+      Message: "User can not login successfully",
       scuccess: false,
       error: error,
     });
