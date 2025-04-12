@@ -4,6 +4,7 @@ import Signin from "./components/Signin";
 import Signup from "./components/Signup";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
+import FormBuilder from "./components/form/FormBuilder";
 
 const appRouter = createBrowserRouter([
    {
@@ -28,6 +29,11 @@ const appRouter = createBrowserRouter([
         {
             path: "/dashboard",
             element: <Dashboard/>,
+            children: []
+        },
+        {
+            path: "/formbuilder",
+            element: <FormBuilder/>,
             children: []
         }
     ]
