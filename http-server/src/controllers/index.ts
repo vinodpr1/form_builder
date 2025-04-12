@@ -1,10 +1,11 @@
 import { createUser , loginUser} from "./user-controller";
-import { createForm, readForms, readForm } from "./form-controller";
+import { createForm, readForms, readForm, submitResponse } from "./form-controller";
 
 export {
     createUser,
     loginUser,
     createForm,
     readForms,
-    readForm
+    readForm,
+    submitResponse
 }

@@ -16,7 +16,7 @@ const Dashboard = () => {
     };
 
     checkAuth();
-  }, [navigate]);
+  }, []);
 
   return (
     <div className='mt-16'>

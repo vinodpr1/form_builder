@@ -31,4 +31,13 @@ export class FormService {
         }
     }
 
+    async submitResponse(id: string, data: any) {
+      try {
+        const response = await formRepository.submitResponse(id, data);
+        return response;
+      } catch (error) {
+        console.log("Error", error);
+      }
+  }
+
 }

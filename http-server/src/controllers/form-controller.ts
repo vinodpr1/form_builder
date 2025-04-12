@@ -60,8 +60,28 @@ const readForms = async (req: any, res:any) => {
     }
   };
 
+  const submitResponse = async (req: any, res:any) => {
+    try {
+      const data = req.body;
+      const submission = await formService.submitResponse(req.headers.formid, data);
+      return res.status(200).json({
+        response: submission,
+        Message: "from by form id",
+        scuccess: true,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        Message: "error occured while getting from by form id",
+        success: false,
+        error: error,
+      });
+    }
+  };
+
+
 export {
   createForm,
   readForms,
-  readForm
+  readForm,
+  submitResponse
 };

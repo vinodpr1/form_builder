@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import copy from 'copy-to-clipboard';
+import { toast } from 'react-toastify';
 
 const FormPreview = () => {
   const { formId } = useParams();
@@ -42,14 +43,13 @@ const FormPreview = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(formValues, formId);
     try {
-      await axios.post(`http://localhost:3300/api/v1/form/forms/${formId}/submissions`, {
-        responses: formValues
-      });
-      alert('Form submitted successfully!');
+      await axios.post(`http://localhost:3300/api/v1/form/form`, formValues, {headers:{formId:formId}});
+      toast.success('Form submitted successfully!');
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('Failed to submit form');
+      console.log(error);
+      toast.error('Error submitting form:');
     }
   };
 
@@ -59,7 +59,7 @@ const FormPreview = () => {
   if (!form) return <div>Form not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-16">
+    <div className="max-w-4xl mx-auto p-6 mt-16 border-4 border-pink-600">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">{form.form.title}</h1>
         <div className="flex gap-2">

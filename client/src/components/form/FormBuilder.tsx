@@ -58,30 +58,6 @@ const FormBuilder: React.FC = () => {
     );
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   const sampleFormData = {
-  //       title: formTitle,
-  //       fields: 
-  //         formElements.map((element)=>{
-  //           return {
-  //               name: element.label,
-  //               label: element.label,
-  //               options: element.options,
-  //               required: element.required,
-  //               html_element: element.type,
-  //               placeholder: element.placeholder,
-  //               type: element.type
-  //           }
-  //         })
-  //   };
-  //      console.log("KKKKKKKKKK",sampleFormData);
-  //     const res = await axios.post("http://localhost:3300/api/v1/form/forms", sampleFormData);
-  //     console.log(res);
-  //     setFormTitle("");
-  // };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
@@ -263,8 +239,8 @@ const FormBuilder: React.FC = () => {
         </div>
 
         {!previewMode ? (
-          <div className="grid grid-cols-4 gap-6">
-            <div className="space-y-3">
+          <div className="grid grid-cols-4 gap-6 ">
+            <div className="space-y-3 border border-gray-600 rounded-lg p-4">
               <h2 className="font-semibold">Elements</h2>
               {availableElements.map((item) => (
                 <div
@@ -306,7 +282,7 @@ const FormBuilder: React.FC = () => {
             {formElements.length > 0 && (
               <button
                 type="submit"
-                className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="mt-6 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-500"
               >
                 Submit
               </button>
@@ -327,213 +303,3 @@ const FormBuilder: React.FC = () => {
 };
 
 export default FormBuilder;
-
-// import React, { useState } from 'react';
-// import { FormElement } from './FormElement';
-// import { ElementSettings } from './ElementSetting';
-// import { Type, AlignLeft, Hash, CheckSquare, Eye, PenSquare } from 'lucide-react';
-// import axios from 'axios';
-
-// interface FormElement {
-//   id: string;
-//   type: string;
-//   label: string;
-//   placeholder?: String,
-//   required?: boolean;
-//   options?: string[];
-// }
-
-// export const FormBuilder: React.FC = () => {
-//   const [formElements, setFormElements] = useState<FormElement[]>([]);
-//   const [selectedElement, setSelectedElement] = useState<FormElement | null>(null);
-//   const [previewMode, setPreviewMode] = useState(false);
-//   const [formValues, setFormValues] = useState<Record<string, any>>({});
-//   const [formTitle, setFormTitle] = useState<string>("");
-
-//   const availableElements = [
-//     { type: 'text', label: 'Text Input', placeholder:"jds", icon: Type },
-//     { type: 'checkbox', label: 'Checkbox', icon: CheckSquare },
-//   ];
-
-//   const handleDragStart = (e: React.DragEvent, type: string) => {
-//     e.dataTransfer.setData('elementType', type);
-//   };
-
-//   const handleDrop = (e: React.DragEvent) => {
-//     e.preventDefault();
-//     const type = e.dataTransfer.getData('elementType');
-//     const newElement: FormElement = {
-//       id: `${type}-${Date.now()}`,
-//       type,
-//       label: `New ${type} field`,
-//       options: type === 'checkbox' ? [] : undefined,
-//     };
-//     setFormElements([...formElements, newElement]);
-//   };
-
-//   const handleDragOver = (e: React.DragEvent) => {
-//     e.preventDefault();
-//   };
-
-//   const handleSettingsClick = (id: string) => {
-//     const element = formElements.find((el) => el.id === id);
-//     if (element) {
-//       setSelectedElement(element);
-//     }
-//   };
-
-//   const handleElementUpdate = (id: string, updates: Partial<FormElement>) => {
-//     console.log("updates", updates);
-//     setFormElements(formElements.map((el) =>
-//       el.id === id ? { ...el, ...updates } : el
-//     ));
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent) => {    
-//     e.preventDefault();
-   
-//     const sampleFormData = {
-//         form: {
-//           title: formTitle,
-//           fields: [
-//             {
-//               label: "Input",
-//               required: false,
-//               html_element: "textbox",
-//               placeholder: "type..."
-//             },
-//             {
-//               label: "subscribe",
-//               required: false,
-//               html_element: "checkbox",
-//             }
-//           ]
-//         }
-//     };
-    
-//     // console.log('Form Values:', formValues);
-//     console.log('Form elements to store in DB:', formElements);
-//     // console.log("Title of the form", formTitle)
-//     // const res = await axios.post("http://localhost:3300/api/v1/form/forms", sampleFormData);
-//     // console.log(res);
-
-//     setFormTitle("");
-//   };
-
-//   const togglePreviewMode = () => {
-//     setPreviewMode(!previewMode);
-//     if (!previewMode) {
-//       setFormValues({});
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 p-8 mt-16">
-//       <div className="max-w-7xl mx-auto">
-//         <div className="flex justify-between items-center mb-8">
-//           <h1 className="text-2xl font-bold text-gray-900">Form Builder</h1>
-//            <input 
-//                value={formTitle} 
-//                onChange={(e)=>setFormTitle(e.target.value)} 
-//                type="text" 
-//                className='border rounded px-4 py-2' 
-//                placeholder='Enter form tItle....'
-//             />
-//           <button
-//             onClick={togglePreviewMode}
-//             className="flex items-center gap-2 px-4 py-2 bg-purple-400 text-white rounded hover:bg-purple-500 transition-colors cursor-pointer"
-//           >
-//             {previewMode ? (
-//               <>
-//                 <PenSquare className="w-4 h-4" />
-//                 Edit Form
-//               </>
-//             ) : (
-//               <>
-//                 <Eye className="w-4 h-4" />
-//                 Preview Form
-//               </>
-//             )}
-//           </button>
-//         </div>
-        
-//         {!previewMode ? (
-//           <div className="grid grid-cols-4 gap-8">
-//             <div className="space-y-2 border border-gray-200 rounded-md px-2">
-//               <h2 className="text-md font-semibold mb-4">Input Elements</h2>
-//               {availableElements.map(({ type, label, icon: Icon }) => (
-//                 <FormElement
-//                   key={type}
-//                   type={type}
-//                   label={label}
-//                   id={type}
-//                   onDragStart={handleDragStart}
-//                 />
-//               ))}
-//             </div>
-            
-//             <div
-//               className="col-span-3 bg-white p-6 rounded-lg border border-dashed border-gray-300 min-h-[500px]"
-//               onDrop={handleDrop}
-//               onDragOver={handleDragOver}
-//             >
-//               {formElements.length === 0 ? (
-//                 <div className="h-full flex items-center justify-center text-gray-500">
-//                   Drag and drop elements here
-//                 </div>
-//               ) : ( 
-//                 <div className="space-y-4">
-//                   {formElements.map((element) => (
-//                     <FormElement
-//                       key={element.id}
-//                       {...element}
-//                       isPreview
-//                       onDragStart={handleDragStart}
-//                       onSettingsClick={handleSettingsClick}
-//                     />
-//                   ))}
-//                 </div>
-//               )}
-//             </div>
-//           </div>
-//         ) : (
-//           <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-sm">
-//             <h2>Heoo from vinod kumarrrr</h2>
-//             <div className="space-y-4 border-2 border-green-600">
-//               {formElements.map((element) => (
-//                 <FormElement
-//                   key={element.id}
-//                   {...element}
-//                   previewMode
-//                   value={formValues[element.id]}
-//                   onChange={(value) => {
-//                     setFormValues({ ...formValues, [element.id]: value });
-//                     console.log(value);
-//                 }}
-//                 />
-//               ))}
-//             </div>
-//             {formElements.length > 0 && (
-//               <div className="mt-6">
-//                 <button
-//                   type="submit"
-//                   className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-//                 >
-//                   Submit Form
-//                 </button>
-//               </div>
-//             )}
-//           </form>
-//         )}
-//       </div>
-
-//       {selectedElement && (
-//         <ElementSettings
-//           element={selectedElement}
-//           onClose={() => setSelectedElement(null)}
-//           onUpdate={handleElementUpdate}
-//         />
-//       )}
-//     </div>
-//   );
-// };

@@ -33,4 +33,15 @@ export class FormRepository {
     }
   }
 
+  async submitResponse(id: string, data: any) {
+    try {
+      console.log("kkkkkkkkkkkk", id, data);
+      return "form";
+    } catch (error) {
+      console.log("Error has occured while fetching forms");
+      throw error;
+    }
+  }
+
+
 }
