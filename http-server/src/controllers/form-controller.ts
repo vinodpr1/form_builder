@@ -78,10 +78,28 @@ const readForms = async (req: any, res:any) => {
     }
   };
 
+  const readResponse = async (req: any, res:any) => {
+    try {
+      const responses = await formService.readResponse(req.headers.formid);
+      return res.status(200).json({
+        responses: responses,
+        Message: "from by form id",
+        scuccess: true,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        Message: "error kjweiu398384 occured while getting from by form id",
+        success: false,
+        error: error,
+      });
+    }
+  };
+
 
 export {
   createForm,
   readForms,
   readForm,
-  submitResponse
+  submitResponse,
+  readResponse
 };

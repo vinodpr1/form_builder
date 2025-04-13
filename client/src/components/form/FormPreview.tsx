@@ -11,12 +11,12 @@ const FormPreview = () => {
   const [formValues, setFormValues] = useState<Record<string, any>>({});
   const [isCopied, setIsCopied] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [response, setResponse] = useState<any>([])
 
   useEffect(() => {
     const fetchForm = async () => {
       try {
         const response = await axios.get(`http://localhost:3300/api/v1/form/form/${formId}`);
-        console.log("response", response);
         setForm(response.data.response);
       } catch (error) {
         console.error('Error fetching form:', error);
@@ -25,6 +25,24 @@ const FormPreview = () => {
       }
     };
     fetchForm();
+  }, [formId]);
+
+
+  useEffect(() => {
+    const fetchRes = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3300/api/v1/form/formresponses`, {
+          headers: {
+            formId: formId
+          }
+        });
+        console.log("all the reponse store in DB", response.data.responses);
+        setResponse(response.data.responses);
+      } catch (error) {
+        console.error('Error fetching form responses:', error);
+      }
+    };
+    fetchRes();
   }, [formId]);
 
 
@@ -59,7 +77,7 @@ const FormPreview = () => {
   if (!form) return <div>Form not found</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-16 border-4 border-pink-600">
+    <div className="max-w-4xl mx-auto p-6 mt-16 ">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">{form.form.title}</h1>
         <div className="flex gap-2">
@@ -124,8 +142,31 @@ const FormPreview = () => {
           Submit
         </button>
       </form>
+
+      <table className="table-auto border-collapse border border-gray-300 w-full mt-4">
+  <thead className="bg-gray-100">
+    <tr>
+      <th className="border border-gray-300 px-4 py-2">Name</th>
+      <th className="border border-gray-300 px-4 py-2">Email</th>
+      <th className="border border-gray-300 px-4 py-2">Profession</th>
+    </tr>
+  </thead>
+  <tbody>
+    {response.map((res: any, index: number) => (
+      <tr key={index} className="text-center">
+        <td className="border border-gray-300 px-4 py-2">{res.responses.name}</td>
+        <td className="border border-gray-300 px-4 py-2">{res.responses.email}</td>
+        <td className="border border-gray-300 px-4 py-2">
+          {Array.isArray(res.responses.profession) ? res.responses.profession.join(', ') : res.responses.profession}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
     </div>
   );
 };
 
 export default FormPreview;
+
