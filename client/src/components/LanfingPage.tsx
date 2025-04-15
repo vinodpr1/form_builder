@@ -90,7 +90,7 @@ const  LandingPage=()=> {
       </section>
 
       <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto bg-purple-400 rounded-2xl p-8 sm:p-12">
+        <div className="max-w-7xl mx-auto bg-purple-400 rounded-2xl p-8 sm:p-12 ">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready to start building?

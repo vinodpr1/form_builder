@@ -13,20 +13,6 @@ export class UserService {
         return { user, token };
       } catch (error) {
         console.log("Error", error);
-        // if (error.name == "MongoServerError") {
-        //   const mongoError = new MongoError(error);
-        //   throw mongoError;
-        // }
-        // if (error.name == "ValidationError") {
-        //   const clientError = new ClientError(
-        //     error.name,
-        //     error.message,
-        //     StatusCodes.BAD_REQUEST,
-        //     error._message,
-        //   );
-        //   throw clientError;
-        // }
-        // throw error;
       }
     }
 
@@ -41,7 +27,7 @@ export class UserService {
             throw clientError;
           }
     
-          // is user is present then will check for
+          // is user is preset then will check for
           if (!res.comparePassword(password)) {
             const clientError = {
               message: "Please check your Password , we have't this pass associated with any Email",

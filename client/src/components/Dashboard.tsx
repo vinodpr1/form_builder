@@ -14,7 +14,6 @@ const Dashboard = () => {
         navigate('/signin');
       }
     };
-
     checkAuth();
   }, []);
 
@@ -44,6 +43,7 @@ const FormGallery = () => {
       try {
         const response = await axios.get("http://localhost:3300/api/v1/form/forms");
         setCreatedForms(response.data.response);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching forms:", error);
       }
@@ -77,7 +77,7 @@ const FormGallery = () => {
               key={form._id}
               className="border border-gray-200 rounded-xl p-6 cursor-pointer hover:border-blue-500 hover:shadow-md transition-all"
             >
-              <h3 className="text-lg font-semibold text-gray-900">{form.form.title}</h3>
+              <h3 className="text-sm font-semibold text-gray-900">{form.form.title}</h3>
               <p className="text-gray-600 mt-2 text-sm">Click to preview and share</p>
               <button onClick={() => handleUseTemplate(form._id)} className="flex items-center gap-2 px-2 py-1 mt-2 bg-purple-400 text-white font-medium rounded hover:bg-purple-500 cursor-pointer transition-colors">
                 View form

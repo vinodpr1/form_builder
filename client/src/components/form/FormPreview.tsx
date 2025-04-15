@@ -1,4 +1,3 @@
-// FormPreview.tsx
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -13,11 +12,25 @@ const FormPreview = () => {
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState<any>([])
 
+
+  const navigate = useNavigate();
+ 
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/signin');
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+
   useEffect(() => {
     const fetchForm = async () => {
       try {
         const response = await axios.get(`http://localhost:3300/api/v1/form/form/${formId}`);
         setForm(response.data.response);
+        console.log("KKk", response.data.response);
       } catch (error) {
         console.error('Error fetching form:', error);
       } finally {
@@ -26,7 +39,6 @@ const FormPreview = () => {
     };
     fetchForm();
   }, [formId]);
-
 
   useEffect(() => {
     const fetchRes = async () => {
@@ -45,19 +57,6 @@ const FormPreview = () => {
     fetchRes();
   }, [formId]);
 
-
-  const navigate = useNavigate();
- 
-  useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        navigate('/signin');
-      }
-    };
-
-    checkAuth();
-  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,28 +142,33 @@ const FormPreview = () => {
         </button>
       </form>
 
-      <table className="table-auto border-collapse border border-gray-300 w-full mt-4">
+ <table className="table-auto border-collapse border border-gray-300 w-full mt-4">
   <thead className="bg-gray-100">
     <tr>
-      <th className="border border-gray-300 px-4 py-2">Name</th>
-      <th className="border border-gray-300 px-4 py-2">Email</th>
-      <th className="border border-gray-300 px-4 py-2">Profession</th>
+      {
+        form.form.fields.map((key: any, index: number)=>{
+          return(
+            <th key={index} className="border border-gray-300 px-4 py-2">{key.name}</th>
+          )
+        })
+      }
     </tr>
   </thead>
   <tbody>
     {response.map((res: any, index: number) => (
       <tr key={index} className="text-center">
-        <td className="border border-gray-300 px-4 py-2">{res.responses.name}</td>
-        <td className="border border-gray-300 px-4 py-2">{res.responses.email}</td>
-        <td className="border border-gray-300 px-4 py-2">
-          {Array.isArray(res.responses.profession) ? res.responses.profession.join(', ') : res.responses.profession}
-        </td>
+         {
+           form.form.fields.map((key:any, index:any)=>{
+             return(
+              <td>{res.responses[key.name]}</td>
+             )
+           })
+         }
       </tr>
     ))}
   </tbody>
-</table>
-
-    </div>
+ </table>
+</div>
   );
 };
 
