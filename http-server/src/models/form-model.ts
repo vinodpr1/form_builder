@@ -32,10 +32,109 @@ const formSchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-formSchema.pre('save', function(next) {
-  this.updated_at = new Date();
-  next();
-});
+
 
 const FormModel = mongoose.model('Form', formSchema);
 export default FormModel;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// formSchema.pre('save', function(next) {
+//   this.updated_at = new Date();
+//   next();
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// form structure 
+
+// form: {
+//   title: "Title of the form",
+//   fields: [
+//     name: "Field name",
+//     label: "Field Label",
+//     options: { type: ["Op1", "op2", "op3"]},
+//     required: "true/false",
+//     html_element: "text",
+//     placeholder: "Field Placeholder",
+//     type: "text"
+//   ]
+// },
+// userid: "9483774yuhjdoof8ydui",
+// created_at: "2025-04-12T13:12:27.620+00:00",
+// updated_at: "2025-04-12T13:12:27.620+00:00"

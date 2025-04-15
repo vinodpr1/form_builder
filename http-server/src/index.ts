@@ -13,7 +13,7 @@ const startServer = () => {
   app.use("/api", router);
 
   app.listen(PORT, async () => {
-   await createDBConnection();
+    await createDBConnection();
     console.log(`Server has Started on PORT No ${PORT}`);
   });
 };

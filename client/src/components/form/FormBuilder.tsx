@@ -40,7 +40,7 @@ const FormBuilder: React.FC = () => {
       placeholder: type === 'text' ? 'Enter text...' : undefined,
       options: type === 'checkbox' ? ['Option 1'] : undefined,
     };
-    setFormElements([...formElements, newElement]);
+    setFormElements([ newElement, ...formElements]);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -213,7 +213,7 @@ const FormBuilder: React.FC = () => {
           <div className='flex gap-2'>
             <button
               onClick={() => setPreviewMode(!previewMode)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 bg-purple-400 text-white rounded cursor-pointer"
             >
               {previewMode ? (
                 <>
@@ -282,6 +282,7 @@ const FormBuilder: React.FC = () => {
             {formElements.length > 0 && (
               <button
                 type="submit"
+                disabled
                 className="mt-6 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-500"
               >
                 Submit

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/serverConfig";
 
 export const authenticator=(req:any, res:any, next:any)=>{
-   const token = req.header('token');
+  const token = req.header('token');
   console.log("validating");
   if (!token) {
     return res.status(401).send({ error: 'Authentication required' });
